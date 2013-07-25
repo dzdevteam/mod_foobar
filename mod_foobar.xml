@@ -21,7 +21,9 @@
     <languages>
         <!-- Any language files included with the module -->
         <language tag="en-GB">en-GB.mod_foobar.ini</language>
+        <language tag="en-GB">en-GB.mod_foobar.sys.ini</language>
         <language tag="vi-VN">vi-VN.mod_foobar.ini</language>
+        <language tag="vi-VN">vi-VN.mod_foobar.sys.ini</language>
     </languages>
     
     <!-- Optional parameters -->
