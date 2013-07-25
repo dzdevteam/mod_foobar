@@ -25,6 +25,8 @@ do
             find . -type f -exec sed -i "s/foobar/$foobar/g" {} \;
             find . -type f -exec sed -i "s/Foobar/$Foobar/g" {} \;
             find . -type f -exec sed -i "s/FOOBAR/$FOOBAR/g" {} \;
+            # Remove white space in class name in helper file
+            sed -i -e "s/$Foobar/${Foobar// /}/g" helper.php;
             
             # Find and replace file names
             for filename in *mod_foobar*;
