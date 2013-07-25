@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" client="site" version="3.1" method="upgrade">
     <name>mod_foobar</name>
-    <creationDate>October 2012</creationDate>
-    <author>DZ's DEVELOPMENT TEAM</author>
-    <authorEmail>support@dezign.vn</authorEmail>
+    <creationDate>July 2013</creationDate>
+    <author>DZ Team</author>
+    <authorEmail>dev@dezign.vn</authorEmail>
     <authorUrl>dezign.vn</authorUrl>
-    <copyright>(C) 2012 DZ Creative Studio. All rights reserved.</copyright>
+    <copyright>(C) 2013 DZ Creative Studio. All rights reserved.</copyright>
     <version>1.0.0</version>
     <description>MOD_FOOBAR_DESC</description>
     
