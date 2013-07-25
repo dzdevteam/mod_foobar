@@ -16,6 +16,11 @@ select yn in "Yes" "No";
 do
     case $yn in
         Yes )
+            # Duplicate foobar module
+            cd ..
+            cp -r mod_foobar "mod_$foobar"
+            cd "mod_$foobar"
+            
             # Find and replace content
             find . -type f -exec sed -i "s/foobar/$foobar/g" {} \;
             find . -type f -exec sed -i "s/Foobar/$Foobar/g" {} \;
@@ -26,7 +31,12 @@ do
             do
                 mv "$filename" "${filename//foobar/$foobar}"
             done
-                
+            
+            # Remove redundant files
+            rm brand
+            rm LICENSE
+            rm README.md
+            rm -r .git
             break;;
         No )
             exit;;
