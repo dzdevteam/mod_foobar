@@ -14,8 +14,7 @@
         <filename module="mod_foobar">mod_foobar.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
+        <folder>tmpl</folder>
     </files>
     
     <languages>
