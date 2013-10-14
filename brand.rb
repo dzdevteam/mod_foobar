@@ -1,9 +1,33 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
+require 'rbconfig'
+
+def os
+    @os ||= (
+        host_os = RbConfig::CONFIG['host_os']
+        case host_os
+        when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+          :windows
+        when /darwin|mac os/
+          :macosx
+        when /linux/
+          :linux
+        when /solaris|bsd/
+          :unix
+        else
+          raise Error::WebDriverError, "unknown os: #{host_os.inspect}"
+        end
+    )
+end
 
 def colorize(text, color_code)
-  "\e[#{color_code}m#{text}\e[0m"
+    # Disable on windows
+    if os == :windows
+        text
+    else
+        "\e[#{color_code}m#{text}\e[0m"
+    end
 end
 
 def green(text)
@@ -31,9 +55,13 @@ def confirm?(question)
     result.downcase == "y"
 end
 
-foobar = ask("Replace \"foobar\" with? ")
-Foobar = ask("Replace \"Foobar\" with? ")
-FOOBAR = ask("Replace \"FOOBAR\" with? ")
+# Ask for information
+foobar = ask("Replace \"foobar\" in module name with? ")
+Foobar = ask("Replace \"Foobar\" in class name with? ")
+FOOBAR = ask("Replace \"FOOBAR\" in language constants with? ")
+author_name = ask("Module's author name? ")
+author_email = ask("Module's author email? ")
+author_domain = ask("Module's author domain? ")
 
 puts green("\nPlease review...") # Green text
 
@@ -69,14 +97,27 @@ if confirm?("Proceed?")
     
     # Search and replace in files
     puts "\n" + green("Changing module name...")
-    `ruby -pi -e "gsub('foobar', '#{foobar}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('foobar', '#{foobar}')" *.ini **/*.php *.xml`
     
     puts green("Changing class name...")
-    `ruby -pi -e "gsub('Foobar', '#{Foobar}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('Foobar', '#{Foobar}')" *.ini **/*.php *.xml`
     
     puts green("Changing language constants...")
-    `ruby -pi -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini **/*.php *.xml`
     
+    puts green("Updating author name...")
+    `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini **/*.php *.xml`
+
+    puts green("Updating author email...")
+    `ruby -pi.bak -e "gsub('support@dezign.vn', '#{author_email}')" *.ini **/*.php *.xml`
+
+    puts green("Updating author domain...")
+    `ruby -pi.bak -e "gsub('dezign.vn', '#{author_domain}')" *.ini **/*.php *.xml`
+
+    # Remove backup files
+    puts green("Removing backup files...")
+    Dir.glob("*.bak").each {|file| FileUtils.rm file, :verbose => true}
+
     # Support auto generate more language files
     if confirm?("Do you want to generate additional language files besides en-GB (Y/N)?")
         # XML tags of language files
@@ -99,15 +140,24 @@ if confirm?("Proceed?")
     
     # Generate new git repository if git is available
     puts green("\nChecking git version...")
-    git_version = `git --version`
-    if !git_version.nil?
-        if confirm?("#{git_version.chomp} is available on your system. Do you want to create a new repository now?")
+    result = system 'git --version'
+    if !result.nil?
+        if confirm?("Git is available on your system. Do you want to create a new repository now?")
             puts 'git init .'
             `git init .`
-        else
-            puts green('Git is not available on your system!')
         end
+    else
+        puts green('Git is not available on your system!')
     end
     
-    puts green("\nModule mod_#{foobar} has been generated successfully! Navigate to the parent of this folder to see the new one.")
+    puts green("\nModule mod_#{foobar} has been generated successfully!")
+    if confirm?("Open mod_#{foobar} folder now?")
+        if os == :windows
+            `explorer ..\\mod_#{foobar}`
+        elsif os == :macosx
+            `open ../mod_#{foobar}` 
+        else
+            `xdg-open ../mod_#{foobar}`
+        end
+    end
 end

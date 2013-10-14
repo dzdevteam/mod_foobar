@@ -9,6 +9,7 @@ You can install this module right away. Though this module comes with a very han
 * Auto change module name
 * Auto change class name
 * Auto change language constant
+* Update author's information
 * Support generating new language files
 * Auto detect git version
 
