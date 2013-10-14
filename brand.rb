@@ -109,7 +109,7 @@ if confirm?("Proceed?")
     `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini **/*.php *.xml`
 
     puts green("Updating author email...")
-    `ruby -pi.bak -e "gsub('support@dezign.vn', '#{author_email}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('dev@dezign.vn', '#{author_email}')" *.ini **/*.php *.xml`
 
     puts green("Updating author domain...")
     `ruby -pi.bak -e "gsub('dezign.vn', '#{author_domain}')" *.ini **/*.php *.xml`

@@ -4,7 +4,7 @@
  * @package     mod_foobar
  * @copyright   Copyright (C) 2013. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @author      DZ Team <support@dezign.vn> - dezign.vn
+ * @author      DZ Team <dev@dezign.vn> - dezign.vn
  */
  
 // no direct access
