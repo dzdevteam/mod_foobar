@@ -17,11 +17,15 @@ You can install this module right away. Though this module comes with a very han
 
 Run this in your favorite shell console
 
-`mod_foobar$ ./brand.rb`
+```
+mod_foobar$ ./brand.rb
+```
 
 or
 
-`mod_foobar$ ruby brand.rb`
+```
+mod_foobar$ ruby brand.rb
+```
 
 ## 2. Ruby Installation ##
 
@@ -32,15 +36,22 @@ There’s a great project to help you install Ruby: [RubyInstaller](http://rubyi
 ### On Linux ###
 If your OS is Debian-based (e.g. Ubuntu and its derivatives...), you can use this command:
 
-`$ sudo apt-get install ruby`
+```
+$ sudo apt-get install ruby
+```
 
 If your OS use pacman as the package manager:
 
-`$ sudo pacman -S ruby`
+```
+$ sudo pacman -S ruby
+```
 
 Other package managers will have different syntaxes. You can search for how to install Ruby with your favorite distribution.
 
 ### On Mac ###
 Many people on Mac OS X use Homebrew as a package manager. It’s really easy to get Ruby:
 
-`$ brew install ruby`
+
+```
+$ brew install ruby
+```
