@@ -42,11 +42,11 @@ def ask(question, options = {})
     defaults.merge(options).each do |attr, val|
         instance_variable_set("@#{attr}", val) if defaults.has_key?(attr) && (not val.nil?)
     end if options
-    
+
     print "\n" if @new_block
-    
+
     print colorize(question, @color)
-    
+
     gets.chomp
 end
 
@@ -81,30 +81,30 @@ if confirm?("Proceed?")
     # Copy module structure
     puts "\n" + green("Copying module structures...")
     FileUtils.cp_r "../mod_foobar", "../mod_#{foobar}", {:verbose => true}
-    
+
     # Remove git
     puts "\n" + green("Removing revision controls, script files and README")
     FileUtils.cd "../mod_#{foobar}"
     FileUtils.rm_rf ".git", :verbose => true
     FileUtils.rm "README.md", :verbose => true
     Dir.glob("brand*") { |script| FileUtils.rm script, :verbose => true }
-    
+
     # Rename files
     puts "\n" + green("Renaming files...")
     Dir.glob("*foobar*") do |filename|
         FileUtils.mv filename, filename.sub('foobar', foobar), :force => true, :verbose => true
     end
-    
+
     # Search and replace in files
     puts "\n" + green("Changing module name...")
     `ruby -pi.bak -e "gsub('foobar', '#{foobar}')" *.ini **/*.php *.xml`
-    
+
     puts green("Changing class name...")
     `ruby -pi.bak -e "gsub('Foobar', '#{Foobar}')" *.ini **/*.php *.xml`
-    
+
     puts green("Changing language constants...")
     `ruby -pi.bak -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini **/*.php *.xml`
-    
+
     puts green("Updating author name...")
     `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini **/*.php *.xml`
 
@@ -116,14 +116,14 @@ if confirm?("Proceed?")
 
     # Remove backup files
     puts green("Removing backup files...")
-    Dir.glob("*.bak").each {|file| FileUtils.rm file, :verbose => true}
+    Dir.glob("**/*.bak").each {|file| FileUtils.rm file, :verbose => true}
 
     # Support auto generate more language files
     if confirm?("Do you want to generate additional language files besides en-GB (Y/N)?")
         # XML tags of language files
         xml_tags = Array.new
         xml_tags << '<language tag="en-GB">en-GB.mod_test.sys.ini</language>'
-        
+
         # Additional tags from user
         tags = ask("Specify additional comma-separated language tags: ")
         tags.split(',').each do |tag|
@@ -133,11 +133,11 @@ if confirm?("Proceed?")
             xml_tags << "<language tag=\"#{tag}\">#{tag}.mod_#{foobar}.ini</language>"
             xml_tags << "<language tag=\"#{tag}\">#{tag}.mod_#{foobar}.sys.ini</language>"
         end
-        
+
         # Search for the last en-GB tag then replace with additional tags
         File.write(f = "mod_#{foobar}.xml", File.read(f).sub(xml_tags[0], xml_tags.join("\n        ")))
     end
-    
+
     # Generate new git repository if git is available
     puts green("\nChecking git version...")
     result = system 'git --version'
@@ -149,13 +149,13 @@ if confirm?("Proceed?")
     else
         puts green('Git is not available on your system!')
     end
-    
+
     puts green("\nModule mod_#{foobar} has been generated successfully!")
     if confirm?("Open mod_#{foobar} folder now?")
         if os == :windows
             `explorer ..\\mod_#{foobar}`
         elsif os == :macosx
-            `open ../mod_#{foobar}` 
+            `open ../mod_#{foobar}`
         else
             `xdg-open ../mod_#{foobar}`
         end
