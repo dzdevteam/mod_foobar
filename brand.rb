@@ -97,22 +97,22 @@ if confirm?("Proceed?")
 
     # Search and replace in files
     puts "\n" + green("Changing module name...")
-    `ruby -pi.bak -e "gsub('foobar', '#{foobar}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('foobar', '#{foobar}')" *.ini *.php **/*.php *.xml`
 
     puts green("Changing class name...")
-    `ruby -pi.bak -e "gsub('Foobar', '#{Foobar}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('Foobar', '#{Foobar}')" *.ini *.php **/*.php *.xml`
 
     puts green("Changing language constants...")
-    `ruby -pi.bak -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini *.php **/*.php *.xml`
 
     puts green("Updating author name...")
-    `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini *.php **/*.php *.xml`
 
     puts green("Updating author email...")
-    `ruby -pi.bak -e "gsub('dev@dezign.vn', '#{author_email}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('dev@dezign.vn', '#{author_email}')" *.ini *.php **/*.php *.xml`
 
     puts green("Updating author domain...")
-    `ruby -pi.bak -e "gsub('dezign.vn', '#{author_domain}')" *.ini **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('dezign.vn', '#{author_domain}')" *.ini *.php **/*.php *.xml`
 
     # Remove backup files
     puts green("Removing backup files...")
