@@ -59,6 +59,8 @@ end
 foobar = ask("Replace \"foobar\" in module name with? ")
 Foobar = ask("Replace \"Foobar\" in class name with? ")
 FOOBAR = ask("Replace \"FOOBAR\" in language constants with? ")
+module_name = ask("Module's name? ")
+module_description = ask("Module's description? ")
 author_name = ask("Module's author name? ")
 author_email = ask("Module's author email? ")
 author_domain = ask("Module's author domain? ")
@@ -106,13 +108,23 @@ if confirm?("Proceed?")
     `ruby -pi.bak -e "gsub('FOOBAR', '#{FOOBAR}')" *.ini *.php **/*.php *.xml`
 
     puts green("Updating author name...")
-    `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini *.php **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('DZ Team', '#{author_name}')" *.ini *.php **/*.php *.xml LICENSE`
 
     puts green("Updating author email...")
     `ruby -pi.bak -e "gsub('dev@dezign.vn', '#{author_email}')" *.ini *.php **/*.php *.xml`
 
     puts green("Updating author domain...")
     `ruby -pi.bak -e "gsub('dezign.vn', '#{author_domain}')" *.ini *.php **/*.php *.xml`
+
+    puts green("Updating module name...")
+    `ruby -pi.bak -e "gsub('Module Foobar', '#{module_name}')" *.ini LICENSE`
+
+    puts green("Updating module description...")
+    `ruby -pi.bak -e "gsub('Blank template module for development', '#{module_description}')" *.ini LICENSE`
+
+    puts green("Updating copyright year...")
+    `ruby -pi.bak -e "gsub('2013', '#{Time.now.year}')" LICENSE *.php **/*.php *.xml`
+    `ruby -pi.bak -e "gsub('July', '#{Time.now.strftime("%B")}')" *.xml`
 
     # Remove backup files
     puts green("Removing backup files...")
